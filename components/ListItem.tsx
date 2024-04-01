@@ -24,7 +24,13 @@ const ListItem = ({ href, image, name }: Props) => {
       onClick={onClick}
     >
       <div className="relative min-h-[64px] min-w-[64px]">
-        <Image className="object-cover" fill alt="Image" src={image} />
+        <Image
+          className="object-cover"
+          fill
+          alt="Image"
+          src={image}
+          sizes="min-w-[64px]"
+        />
       </div>
       <p className="font-medium truncate py-5">{name}</p>
       <div className="absolute transition opacity-0 rounded-full flex items-center justify-center bg-green-500 p-4 drop-shadow-md right-5 group-hover:opacity-100 hover:scale-110">
