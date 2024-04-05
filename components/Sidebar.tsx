@@ -2,9 +2,12 @@
 
 import { useMemo } from "react";
 import { HiHome } from "react-icons/hi";
+import { twMerge } from "tailwind-merge";
 import { BiSearch } from "react-icons/bi";
 import { usePathname } from "next/navigation";
+
 import { Song } from "@/types/common";
+import usePlayer from "@/hooks/usePlayer";
 import Box from "./Box";
 import Library from "./Library";
 import SidebarItem from "./SidebarItem";
@@ -15,6 +18,7 @@ interface Props {
 }
 
 const Sidebar = ({ children, songs }: Props) => {
+  const player = usePlayer();
   const pathname = usePathname();
 
   const routes = useMemo(
@@ -36,7 +40,12 @@ const Sidebar = ({ children, songs }: Props) => {
   );
 
   return (
-    <div className="flex h-full">
+    <div
+      className={twMerge(
+        "flex h-full",
+        player.activeId && "h-[calc(100%-80px)]"
+      )}
+    >
       <div className="hidden md:flex flex-col gap-y-2 bg-black h-full w-[300px] p-2">
         <Box>
           <div className="flex flex-col gap-y-4 px-5 py-4">
