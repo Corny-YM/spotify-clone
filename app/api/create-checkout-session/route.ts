@@ -32,7 +32,7 @@ export async function POST(req: Request) {
         trial_from_data: true,
         metadata,
       },
-      success_url: `${getUrl()}/account`,
+      success_url: `${getUrl()}account`,
       cancel_url: `${getUrl()}`,
     };
 
@@ -47,7 +47,7 @@ export async function POST(req: Request) {
         metadata,
         trial_period_days: 14, // Example trial period of 14 days,
       },
-      success_url: `${getUrl()}/account`,
+      success_url: `${getUrl()}account`,
       cancel_url: `${getUrl()}`,
     });
 
