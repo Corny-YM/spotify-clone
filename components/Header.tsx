@@ -1,5 +1,6 @@
 "use client";
 
+import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { twMerge } from "tailwind-merge";
 import { HiHome } from "react-icons/hi";
@@ -9,9 +10,9 @@ import { RxCaretLeft, RxCaretRight } from "react-icons/rx";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 
 import { useUser } from "@/hooks/useUser";
+import usePlayer from "@/hooks/usePlayer";
 import useAuthModal from "@/hooks/useAuthModal";
 import Button from "./Button";
-import toast from "react-hot-toast";
 
 interface Props {
   children: React.ReactNode;
@@ -19,6 +20,7 @@ interface Props {
 }
 
 const Header = ({ children, className }: Props) => {
+  const player = usePlayer();
   const authModal = useAuthModal();
   const router = useRouter();
   const supabaseClient = useSupabaseClient();
@@ -27,8 +29,8 @@ const Header = ({ children, className }: Props) => {
   const handleLogout = async () => {
     const { error } = await supabaseClient.auth.signOut();
 
-    // TODO: Reset any playing songs
-
+    // Reset any playing songs
+    player.reset();
     router.refresh();
 
     if (error) toast.error(error?.message);

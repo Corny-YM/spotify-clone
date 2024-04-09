@@ -39,8 +39,8 @@ export const MyUserContextProvider = (props: Props) => {
   const getUserDetails = () => supabase.from("users").select("*").single();
   const getSubscription = () =>
     supabase
-      .from("subscription")
-      .select("*, price(*, product(*))")
+      .from("subscriptions")
+      .select("*, prices(*, products(*))")
       .in("status", ["trialing", "active"])
       .single();
 

@@ -8,6 +8,7 @@ import { useUser } from "@/hooks/useUser";
 import useOnPlay from "@/hooks/useOnPlay";
 import useAuthModal from "@/hooks/useAuthModal";
 import useUploadModal from "@/hooks/useUploadModal";
+import useSubscribeModal from "@/hooks/useSubscribeModal";
 import MediaItem from "./MediaItem";
 
 interface Props {
@@ -17,7 +18,8 @@ interface Props {
 const Library = ({ songs }: Props) => {
   const authModal = useAuthModal();
   const uploadModal = useUploadModal();
-  const { user } = useUser();
+  const subscribeModal = useSubscribeModal();
+  const { user, subscription } = useUser();
 
   const onPlay = useOnPlay(songs);
 
@@ -25,6 +27,7 @@ const Library = ({ songs }: Props) => {
     if (!user) return authModal.onOpen();
 
     // TODO: Check for Subscription
+    if (!subscription) return subscribeModal.onOpen();
 
     return uploadModal.onOpen();
   };

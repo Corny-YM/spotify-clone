@@ -3,6 +3,7 @@
 import Image from "next/image";
 
 import { Song } from "@/types/common";
+import usePlayer from "@/hooks/usePlayer";
 import useLoadImage from "@/hooks/useLoadImage";
 
 interface Props {
@@ -10,12 +11,13 @@ interface Props {
   onClick?: (id: string) => void;
 }
 const MediaItem = ({ data, onClick }: Props) => {
+  const player = usePlayer();
   const imageUrl = useLoadImage(data);
 
   const handleClick = () => {
-    onClick?.(data.id);
+    if (onClick) return onClick(data.id);
 
-    // TODO: Default turn on player
+    return player.setId(data.id);
   };
 
   return (
