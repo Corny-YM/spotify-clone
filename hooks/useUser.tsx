@@ -42,6 +42,8 @@ export const MyUserContextProvider = (props: Props) => {
       .from("subscriptions")
       .select("*, prices(*, products(*))")
       .in("status", ["trialing", "active"])
+      .order("created", { ascending: false })
+      .limit(1)
       .single();
 
   useEffect(() => {
